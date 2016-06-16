@@ -1,0 +1,16 @@
+
+<script id="ContextInputTemplate" type="text/x-jquery-tmpl">
+    <ul data-type="ContextInputList" class="brand_search_select" style="max-height: 300px; overflow-y: auto;">
+        <li class="ico_close" data-type="Close" style="float:right;">×</li>
+        {{if Data!=null && Data.length>0}}
+        {{each(i,item) Data}}
+        <li data-type="ContextInputItem" title="{{= item.Name}}" class="selcity" data-id="{{= item.ID}}" data-name="{{= item.Name}}">
+            <span style="max-width: none;" class="text">{{= item.Name}}</span>
+        </li>
+        {{/each}}
+        {{else}}
+        <li><span class="text"><i style="margin:0;"><em class="text-cur">对不起，没有相关数据</em></i></span></li>
+        {{/if}}
+    </ul>
+</script>
+<script src="~/Scripts/ContextInput/ContextInput.js"></script>
