@@ -5,96 +5,131 @@
             SuccessData: { Data: [{ ID: 0, Name: '123' }] },
         }
     },
-    KeyValueText: { Key: 'Key', Value: 'Name' },
-    Container: undefined,//input所在容器对象
-    InputItem: undefined,//联想输入的input对象
-    SearchFunc: function () { },//查询内容的方法 格式：$.ContextInput.Example.SearchFuncEx
-    SearchMinInterval: 500,//查询间隔
+    HandlerItemModel:function(){
+        this.KeyValueText = { Key: 'ID', Value: 'Name' };
+        this.InputItemID='';
+        this.Container = undefined;//input所在容器对象
+        this.InputItem = undefined;//联想输入的input对象
+        this.SearchMinInterval= 500;//查询间隔
+        //查询内容的方法 格式：$.ContextInput.Example.SearchFuncEx
+        this.SearchFunc= function () { };
+        //获取选中项的值
+        this.GetSelectedKey = function () {
+            if(this.InputItem)
+                return this.InputItem.data('CI_Key')
+        };
+        //获取选中项的值
+        this.GetSelectedValue = function () {
+            if(this.InputItem)
+                return this.InputItem.data('CI_Value')
+        };
+        //关闭联想窗口
+        this.Close = function () {
+            if(!this.Container)
+                return false;
+            var ul = this.Container.find('ul[data-type=ContextInputList]');
+            if (ul.length > 0)
+                ul.remove();
+        };
+        //全释放
+        this.Dispose = function (inputID) {
+            this.Close();
+            this.InputItem = undefined;
+            this.SearchFunc = function () { };
+        };
+        return this;
+    },
+    HandlerItems:{},// {inputID:HandlerItemModel}   
     Init: function (inputID, SearchFunc, SearchMinInterval, KeyValueText) {
+        var handlerItems = $.ContextInput.HandlerItems;
+        var item = null;
+        if(handlerItems != null) {
+            item = handlerItems[inputID];
+        }
+        if(item != null && item != undefined){
+            delete handlerItems[inputID];
+        }
+        var handllerItemModel = new $.ContextInput.HandlerItemModel();
+        handllerItemModel.InputItemID = inputID;
         if (SearchMinInterval != null && SearchMinInterval > 0)
-            $.ContextInput.SearchMinInterval = SearchMinInterval;
+            handllerItemModel.SearchMinInterval = SearchMinInterval;
         var input = $('#' + inputID);
         if (input == null || input.length == 0)
             return false;
-        $.ContextInput.InputItem = input;
-        $.ContextInput.Container = input.parent();
+        handllerItemModel.InputItem = input;
+        handllerItemModel.Container = input.parent();
         if (SearchFunc)
-            $.ContextInput.SearchFunc = SearchFunc;
+            handllerItemModel.SearchFunc = SearchFunc;
         else
             return false;
         if (KeyValueText && KeyValueText.Key && KeyValueText.Key != '' && KeyValueText.Value && KeyValueText.Value != '') {
-            $.ContextInput.KeyValueText = KeyValueText;
+            handllerItemModel.KeyValueText = KeyValueText;
         }
-        $.ContextInput.Container.delegate('#' + inputID, 'propertychange input',$.ContextInput.PrivateFunc.SearchHandler);
-        //$.ContextInput.Container.delegate('#' + inputID, 'blur', function () {
+        handllerItemModel.Container.delegate('#' + inputID, 'propertychange input',function(){
+            $.ContextInput.PrivateFunc.SearchHandler(handllerItemModel.InputItemID);
+        });
+        //handllerItemModel.Container.delegate('#' + inputID, 'blur', function () {
         //    $.ContextInput.Close();
         //});
-        $.ContextInput.Container.delegate('ul[data-type=ContextInputList] li[data-type=ContextInputItem]', 'click', function () {
+        handllerItemModel.Container.delegate('ul[data-type=ContextInputList] li[data-type=ContextInputItem]', 'click', function () {
             var li = $(this);
-            var id = li.data('id');
-            var name = li.data('name');
-            var inputItem = $.ContextInput.InputItem;
+            var key = li.data('CI_Key');
+            var value = li.data('CI_Value');
+            var inputItem = handllerItemModel.InputItem;
             inputItem.val(name);
-            inputItem.data('id', id);
-            $.ContextInput.Close();
+            inputItem.data('CI_Key', key);
+            handllerItemModel.Close();
         });
-        $.ContextInput.Container.delegate('ul[data-type=ContextInputList] li[data-type=Close]', 'click', function () {
-            $.ContextInput.Close();
+        handllerItemModel.Container.delegate('ul[data-type=ContextInputList] li[data-type=Close]', 'click', function () {
+            handllerItemModel.Close();
         });
-    },
-    Close: function () {
-        if(!$.ContextInput.Container)
-            return false;
-        var ul = $.ContextInput.Container.find('ul[data-type=ContextInputList]');
-        if (ul.length > 0)
-            ul.remove();
-    },
-    Dispose: function () {
-        $.ContextInput.Close();
-        $.ContextInput.InputItem = undefined;
-        $.ContextInput.SearchFunc = function () { };
+
+        $.ContextInput.HandlerItems[inputID]= handllerItemModel;
     },
     PrivateFunc:{
-        SearchMain:function(TimeOutFlag){
-            if(!$.ContextInput.InputItem)
+        SearchMain:function(inputID,TimeOutFlag){
+            var handlerItemModel = $.ContextInput.HandlerItems[inputID]
+            if(!handlerItemModel)
                 return false;
-            var value = $.ContextInput.InputItem.val();
+            var value = handlerItemModel.InputItem.val();
             if (value == null || value == undefined || value == '') {
+                handlerItemModel.Close();
                 return false;
             }
             if(TimeOutFlag){
-                var oldValue = $.ContextInput.InputItem.data('CI_LastSearchText');
+                var oldValue = handlerItemModel.InputItem.data('CI_LastSearchText');
                 if (value === oldValue) {
                     return false;
                 }
             }
             var now = new Date().getTime();
-            $.ContextInput.InputItem.data('CI_LastSearchTime', now);
-            $.ContextInput.InputItem.data('CI_LastSearchText', value);
-            $.ContextInput.SearchFunc(value, function (Data) {
+            handlerItemModel.InputItem.data('CI_LastSearchTime', now);
+            handlerItemModel.InputItem.data('CI_LastSearchText', value);
+            handlerItemModel.SearchFunc(value, function (Data) {
                 if (Data)
                 {
-                    Data.Tmpl_KeyValueText = $.ContextInput.KeyValueText;
+                    Data.Tmpl_KeyValueText = handlerItemModel.KeyValueText;
                 }
                 var html = $('#ContextInputTemplate').tmpl(Data);
-                $.ContextInput.Close();
-                $.ContextInput.InputItem.after(html);
+                handlerItemModel.Close();
+                handlerItemModel.InputItem.after(html);
             });
         },
-        SearchHandler: function () {
-            if(!$.ContextInput.InputItem)
+        SearchHandler: function (inputID) {
+            var handlerItemModel = $.ContextInput.HandlerItems[inputID]
+            if(!handlerItemModel)
                 return false;
-            var lastSearchTime = $.ContextInput.InputItem.data('CI_LastSearchTime');
+            var lastSearchTime = handlerItemModel.InputItem.data('CI_LastSearchTime');
             var now = new Date().getTime();
             var time = 0;
             if (lastSearchTime > 0) {
-                time = lastSearchTime + $.ContextInput.SearchMinInterval - now;
+                time = lastSearchTime + handlerItemModel.SearchMinInterval - now;
             }
             if (time <= 0) {
-                $.ContextInput.PrivateFunc.SearchMain(false);
+                $.ContextInput.PrivateFunc.SearchMain(inputID,false);
             } else {
                 setTimeout(function(){
-                    $.ContextInput.PrivateFunc.SearchMain(true);
+                    $.ContextInput.PrivateFunc.SearchMain(inputID,true);
                 }, time);
             }
         },
