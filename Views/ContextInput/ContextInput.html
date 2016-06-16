@@ -4,8 +4,8 @@
         <li class="ico_close" data-type="Close" style="float:right;">×</li>
         {{if Data!=null && Data.length>0}}
         {{each(i,item) Data}}
-        <li data-type="ContextInputItem" title="{{= item.Name}}" class="selcity" data-id="{{= item.ID}}" data-name="{{= item.Name}}">
-            <span style="max-width: none;" class="text">{{= item.Name}}</span>
+        <li data-type="ContextInputItem" title="{{= item[Tmpl_KeyValueText.Value]}}" class="selcity" data-id="{{= item[Tmpl_KeyValueText.Key]}}" data-name="{{= item[Tmpl_KeyValueText.Value]}}">
+            <span style="max-width: none;" class="text">{{= item[Tmpl_KeyValueText.Value]}}</span>
         </li>
         {{/each}}
         {{else}}
@@ -14,3 +14,16 @@
     </ul>
 </script>
 <script src="~/Scripts/ContextInput/ContextInput.js"></script>
+
+
+test ContextInput input
+<input type="text" id='txtContextInput' />
+
+<script type="text/javascript">
+    $.ContextInput.Init('cityGroupCityInput', function (inputValue,successFunc) {
+            var sucData = { Data: [{'ID':'1','Name':'test1'},{'ID':'2','Name':'test2'}] };
+            if (successFunc)
+                successFunc(sucData);
+            $('.pop_edit_city ul[data-type=ContextInputList]').css('top', '108px');
+        }, 500, { Key: 'ID', Value: 'Name' });
+</script>

@@ -5,11 +5,12 @@
             SuccessData: { Data: [{ ID: 0, Name: '123' }] },
         }
     },
+    KeyValueText: { Key: 'Key', Value: 'Name' },
     Container: undefined,//input所在容器对象
     InputItem: undefined,//联想输入的input对象
     SearchFunc: function () { },//查询内容的方法 格式：$.ContextInput.Example.SearchFuncEx
     SearchMinInterval: 500,//查询间隔
-    Init: function (inputID, SearchFunc, SearchMinInterval) {
+    Init: function (inputID, SearchFunc, SearchMinInterval, KeyValueText) {
         if (SearchMinInterval != null && SearchMinInterval > 0)
             $.ContextInput.SearchMinInterval = SearchMinInterval;
         var input = $('#' + inputID);
@@ -21,6 +22,9 @@
             $.ContextInput.SearchFunc = SearchFunc;
         else
             return false;
+        if (KeyValueText && KeyValueText.Key && KeyValueText.Key != '' && KeyValueText.Value && KeyValueText.Value != '') {
+            $.ContextInput.KeyValueText = KeyValueText;
+        }
         $.ContextInput.Container.delegate('#' + inputID, 'propertychange input',$.ContextInput.PrivateFunc.SearchHandler);
         //$.ContextInput.Container.delegate('#' + inputID, 'blur', function () {
         //    $.ContextInput.Close();
@@ -68,6 +72,10 @@
             $.ContextInput.InputItem.data('CI_LastSearchTime', now);
             $.ContextInput.InputItem.data('CI_LastSearchText', value);
             $.ContextInput.SearchFunc(value, function (Data) {
+                if (Data)
+                {
+                    Data.Tmpl_KeyValueText = $.ContextInput.KeyValueText;
+                }
                 var html = $('#ContextInputTemplate').tmpl(Data);
                 $.ContextInput.Close();
                 $.ContextInput.InputItem.after(html);
