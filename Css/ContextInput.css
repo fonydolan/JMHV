@@ -1,0 +1,38 @@
+@charset "UTF-8";
+.ContextInput {
+    max-height: 300em;
+    overflow-y: auto;
+    width: 20em;
+    position: absolute;
+    border: 0.1em solid #cce;
+    margin: 0.1em;
+    padding: 0 0 0 0;
+}
+.ContextInput li{
+    font-size: 1em;
+    color: #666;
+    padding-top: 0.25em;
+    padding-left: 1em;
+    padding-bottom: 0.25em
+}
+.ContextInput li:hover {
+    background-color: #E3F7FB;
+}
+.ico_close {
+    display: block;
+    width: 1em;
+    height: 1em;
+    line-height: 1em;
+    cursor: pointer;
+    font-style: normal;
+    font-size: 1em;
+    font-family: Tahoma;
+    color: #999;
+    text-align: center;    
+    padding-right: 1em;
+
+}
+.ico_close:hover {
+    text-decoration: none;
+    color: #FFA800;
+}

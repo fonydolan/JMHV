@@ -16,12 +16,12 @@
         //获取选中项的值
         this.GetSelectedKey = function () {
             if(this.InputItem)
-                return this.InputItem.data('CI_Key')
+                return this.InputItem.data('ci_key')
         };
         //获取选中项的值
         this.GetSelectedValue = function () {
             if(this.InputItem)
-                return this.InputItem.data('CI_Value')
+                return this.InputItem.data('ci_value')
         };
         //关闭联想窗口
         this.Close = function () {
@@ -73,11 +73,12 @@
         //});
         handllerItemModel.Container.delegate('ul[data-type=ContextInputList] li[data-type=ContextInputItem]', 'click', function () {
             var li = $(this);
-            var key = li.data('CI_Key');
-            var value = li.data('CI_Value');
+            var key = li.data('ci_key');
+            var value = li.data('ci_value');
             var inputItem = handllerItemModel.InputItem;
-            inputItem.val(name);
-            inputItem.data('CI_Key', key);
+            inputItem.val(value);
+            inputItem.data('ci_value', value);
+            inputItem.data('ci_key', key);
             handllerItemModel.Close();
         });
         handllerItemModel.Container.delegate('ul[data-type=ContextInputList] li[data-type=Close]', 'click', function () {
