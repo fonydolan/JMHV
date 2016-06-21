@@ -9,6 +9,7 @@ body {
 header {
 	background-color: #eee;
 	text-align: center;
+	height: 3em;
 }
 .content {
 	background-color: #aaa;
