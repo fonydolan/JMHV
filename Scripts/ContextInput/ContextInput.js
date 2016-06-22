@@ -116,6 +116,11 @@
                 var tmpl = _.template($('#ContextInputTemplate').html());
                 var html = tmpl(Data);
                 handlerItemModel.Close();
+                _.each($.ContextInput.HandlerItems,function (item,index,list) {
+                    if(item!=null)
+                        item.Close();
+                });
+
                 handlerItemModel.InputItem.after(html);
                 $('.ContextInput').css('left',handlerItemModel.InputItem.position().left);
             });
