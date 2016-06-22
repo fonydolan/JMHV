@@ -27,7 +27,7 @@
         this.Close = function () {
             if(!this.Container)
                 return false;
-            var ul = this.Container.find('ul[data-type=ContextInputList]');
+            var ul = this.Container.find('.ContextInput');
             if (ul.length > 0)
                 ul.remove();
         };
@@ -81,10 +81,12 @@
             inputItem.data('ci_key', key);
             handllerItemModel.Close();
         });
-        handllerItemModel.Container.delegate('ul[data-type=ContextInputList] li[data-type=Close]', 'click', function () {
+        handllerItemModel.Container.delegate('.ContextInput a.ico_close', 'click', function () {
             handllerItemModel.Close();
         });
-
+        $(window).bind('resize',function(){
+            handllerItemModel.Close();
+        });
         $.ContextInput.HandlerItems[inputID]= handllerItemModel;
     },
     PrivateFunc:{
@@ -111,9 +113,11 @@
                 {
                     Data.Tmpl_KeyValueText = handlerItemModel.KeyValueText;
                 }
-                var html = $('#ContextInputTemplate').tmpl(Data);
+                var tmpl = _.template($('#ContextInputTemplate').html());
+                var html = tmpl(Data);
                 handlerItemModel.Close();
                 handlerItemModel.InputItem.after(html);
+                $('.ContextInput').css('left',handlerItemModel.InputItem.position().left);
             });
         },
         SearchHandler: function (inputID) {

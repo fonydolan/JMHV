@@ -7,10 +7,10 @@
     body {height:100%;} /* IE在高度不够时会自动撑开层*/  
     </style>  
     <![endif]--> 
-    <link rel="stylesheet" type="text/css" href="../Css/base.css">
-    <script type="text/javascript" src="../Scripts/jquery-2.2.4.js"></script>
-    <script type="text/javascript" src="../Scripts/Underscore/Underscore_1.8.2.js"></script>
-    <script type="text/javascript" src="../Scripts/Backbone/backbone.js"></script>
+    <link rel="stylesheet" type="text/css" href="/JMHV/Css/base.css">
+    <script type="text/javascript" src="/JMHV/Scripts/jquery-2.2.4.js"></script>
+    <script type="text/javascript" src="/JMHV/Scripts/Underscore/Underscore_1.8.2.js"></script>
+    <script type="text/javascript" src="/JMHV/Scripts/Backbone/backbone.js"></script>
     
 <title>jmhv</title>
 </head>
