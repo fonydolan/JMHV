@@ -5,6 +5,21 @@
             SuccessData: { Data: [{ ID: 0, Name: '123' }] },
         }
     },
+	Template:'<div class="ContextInput">\
+    <a class="ico_close" data-type="Close" style="float:right;">x</a>\
+    <ul data-type="ContextInputList">\
+        <%if(Data!=null && Data.length>0){%>\
+            <%_.each(Data,function(item,index){%>\
+                <li data-type="ContextInputItem" title="<%=item[Tmpl_KeyValueText.Value]%>" class="selcity" \
+				data-ci_key="<%=item[Tmpl_KeyValueText.Key]%>" data-ci_value="<%=item[Tmpl_KeyValueText.Value]%>">\
+                    <span style="max-width: none;" class="text"><%=item[Tmpl_KeyValueText.Value]%></span>\
+                </li>\
+            <%});%>\
+        <%}else{%>\
+            <li><span class="text"><i style="margin:0;"><em class="text-cur">对不起，没有相关数据</em></i></span></li>\
+        <%}%>\
+    </ul>\
+</div>',
     HandlerItemModel:function(){
         this.KeyValueText = { Key: 'ID', Value: 'Name' };
         this.InputItemID='';
@@ -113,7 +128,7 @@
                 {
                     Data.Tmpl_KeyValueText = handlerItemModel.KeyValueText;
                 }
-                var tmpl = _.template($('#ContextInputTemplate').html());
+                var tmpl = _.template($.ContextInput.Template);
                 var html = tmpl(Data);
                 handlerItemModel.Close();
                 _.each($.ContextInput.HandlerItems,function (item,index,list) {

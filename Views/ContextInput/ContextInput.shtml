@@ -38,24 +38,4 @@
         }, 200, { Key: 'Key', Value: 'Value' });
 </script>
 
-
-
-<script id="ContextInputTemplate" type="text/template">
-<div class="ContextInput">
-    <a class="ico_close" data-type="Close" style="float:right;">x</a>
-    <ul data-type="ContextInputList">
-        <%if(Data!=null && Data.length>0){%>
-            <%_.each(Data,function(item,index){%>
-                <li data-type="ContextInputItem" title="<%=item[Tmpl_KeyValueText.Value]%>" class="selcity" data-ci_key="<%=item[Tmpl_KeyValueText.Key]%>" data-ci_value="<%=item[Tmpl_KeyValueText.Value]%>">
-                    <span style="max-width: none;" class="text"><%=item[Tmpl_KeyValueText.Value]%></span>
-                </li>
-            <%});%>
-        <%}else{%>
-            <li><span class="text"><i style="margin:0;"><em class="text-cur">对不起，没有相关数据</em></i></span></li>
-        <%}%>
-    </ul>
-</div>
-</script>
-
-
 <!--#include virtual="/JMHV/Views/Shared/layout_end.shtml"  -->
