@@ -24,3 +24,18 @@ footer {
     left:0em; /* IE下一定要记得 */  
     height: 3em;         /* footer的高度一定要是固定值*/  
 }
+h1 {
+	display: initial;
+}
+.navigater {
+    z-index: 2;
+    color: white;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0.5em 0px 0.5em 0;
+    padding: 0 3em 0 0;
+}
+.navigater a {
+	text-decoration:none;
+}

@@ -1,0 +1,18 @@
+<!--#include virtual="/JMHV/Views/Shared/layout_start.shtml"  -->
+    <!--#include file="reactBase.shtml"  -->
+    <!--#block name="content" -->
+    <label>react demo3 数组 添加模板</label>
+    <div id="index">
+    </div>
+    <script type="text/babel">
+        var arr = [
+            <h1>react hello h1</h1>,
+            <h2>react hello h2 demo</h2>
+        ];
+        ReactDOM.render(
+            <div>{arr}</div>,
+            document.getElementById('index')
+        );
+    </script>
+    <!--#endblock -->
+<!--#include virtual="/JMHV/Views/Shared/layout_end.shtml"  -->
