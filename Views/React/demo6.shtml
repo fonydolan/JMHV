@@ -1,0 +1,61 @@
+<!--#include virtual="/JMHV/Views/Shared/layout_start.shtml"  -->
+    <!--#include file="reactBase.shtml"  -->
+    <!--#block name="content" -->
+    <div>
+        <h3>react demo4 组件 PropTypes</h3>
+        <p>
+            组件的属性可以接受任意值，字符串、对象、函数等等都可以。有时，我们需要一种机制，
+            验证别人使用组件时，提供的参数是否符合要求。
+            组件类的PropTypes属性，就是用来验证组件实例的属性是否符合要求
+        </p>
+        attention:
+        <p>
+            
+        </p>
+        <p>
+            
+        </p>
+    </div>
+    <br/>
+    index:
+    <div id="index">
+    </div>
+    default:
+    <div id="default">
+    </div>
+    set:
+    <div id="set">
+    </div>
+    <script type="text/babel">
+        var MyName = React.createClass({
+            propTypes:{
+                name:React.PropTypes.string.isRequired,
+            },
+            getDefaultProps:function(){
+                return {
+                    name:'test fqj default'
+                };
+            },
+            render:function(){
+                return (
+                <div>{this.props.name}</div>
+                );
+            }
+        });
+        var data = 111;
+        ReactDOM.render(
+            <MyName name={data}/>,
+            document.getElementById('index')
+        );
+        ReactDOM.render(
+            <MyName />,
+            document.getElementById('default')
+        );
+        data ="set data fqj";
+        ReactDOM.render(
+            <MyName name={data}/>,
+            document.getElementById('set')
+        );
+    </script>
+    <!--#endblock -->
+<!--#include virtual="/JMHV/Views/Shared/layout_end.shtml"  -->

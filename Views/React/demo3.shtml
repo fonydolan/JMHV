@@ -1,7 +1,13 @@
 <!--#include virtual="/JMHV/Views/Shared/layout_start.shtml"  -->
     <!--#include file="reactBase.shtml"  -->
     <!--#block name="content" -->
-    <label>react demo3 数组 添加模板</label>
+    <div>
+        <h3>react demo3 数组 添加模板</h3>
+        <p>
+            JSX 允许直接在模板插入 JavaScript 变量。如果这个变量是一个数组，
+            则会展开这个数组的所有成员
+        </p>
+    </div>
     <div id="index">
     </div>
     <script type="text/babel">

@@ -3,7 +3,6 @@
 <script type="text/javascript" src="/JMHV/Scripts/React/react-dom.js"></script>
 <script type="text/javascript" src="/JMHV/Scripts/React/browser.min.js"></script>
 <div class="navigater" id="navigaterDiv">
-<br/>
 <a href="./index.shtml">index</a>
 <div id="navigaterItems">
 </div>
@@ -11,8 +10,8 @@
 </div>
 <script type="text/babel">
     var inArr = [];
-    var count =5;
-    for(var i=1;i<=5;i++)
+    var count =10;
+    for(var i=1;i<=count;i++)
     {
         inArr.push(i);
     }
@@ -25,6 +24,6 @@
             })
         }
         </div>,
-        document.getElementById('navigaterDiv')
+        document.getElementById('navigaterItems')
     );
 </script>
