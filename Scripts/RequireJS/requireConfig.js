@@ -8,8 +8,9 @@
         baseUrl: baseUrl,
         paths: {
             "jquery": "jquery-2.2.4.min",
-　　　　　　  "underscore": "Underscore/Underscore_1.8.2",
-　　　　　　  "backbone": "Backbone/backbone-min"
+　　　　　　  //"underscore": "Underscore/Underscore_1.8.2",
+　　　　　　  //"backbone": "Backbone/backbone-min",
+             "domReady":"RequireJS/domReady"
         },
         /*
         加载非规范的模块 
@@ -18,13 +19,15 @@
         （2）deps数组，表明该模块的依赖性。
         */
         shim: {
-　　　　　　'underscore':{
+　　　　　　/*
+            'underscore':{
 　　　　　　　　exports: '_'
 　　　　　　},
 　　　　　　'backbone': {
 　　　　　　　　deps: ['underscore', 'jquery'],
 　　　　　　　　exports: 'Backbone'
 　　　　　　}
+            */
 　　　　}
         //text和image插件，则是允许require.js加载文本和图片文件。 
         //类似的插件还有json和mdown，用于加载json文件和markdown文件

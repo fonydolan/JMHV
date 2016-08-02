@@ -8,10 +8,11 @@
     </style>  
     <![endif]--> 
     <link rel="stylesheet" type="text/css" href="../Css/base.css">
+    <!--
     <script type="text/javascript" src="../Scripts/jquery-2.2.4.js"></script>
     <script type="text/javascript" src="../Scripts/Underscore/Underscore_1.8.2.js"></script>
     <script type="text/javascript" src="../Scripts/Backbone/backbone.js"></script>
-    
+    -->
 <title>jmhv</title>
 </head>
 <body>

@@ -5,6 +5,21 @@
 <!--#block name="content" -->
      <div id="index">
         <label>RequireJS</label>
+        <script type="text/javascript">
+        //常规使用
+        require(['domReady'], function (domReady) {
+            domReady(function () {
+                console.info('The DOM is ready before I happen');
+                console.info(document.readyState);
+            });
+            domReady.load(null,null,function(){
+                console.info('load');   
+                console.info(document.readyState);    
+            },{isBuild:true});
+            console.info('The DOM might not be ready before I happen');   
+            console.info(document.readyState);     
+        });
+        </script>
     </div>
 <!--#endblock -->
 
