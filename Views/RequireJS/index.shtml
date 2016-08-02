@@ -1,0 +1,11 @@
+<!--#include virtual="/JMHV/Views/Shared/layout_start.shtml"  -->
+
+<script type="text/javascript" src="/JMHV/Scripts/RequireJS/Require.js" 
+        data-main="/JMHV/Scripts/RequireJS/requireConfig.js"></script>
+<!--#block name="content" -->
+     <div id="index">
+        <label>RequireJS</label>
+    </div>
+<!--#endblock -->
+
+<!--#include virtual="/JMHV/Views/Shared/layout_end.shtml"  -->
