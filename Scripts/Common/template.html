@@ -1,6 +1,7 @@
-﻿<TemplGoodsRow>
-<% if(datas){ %>
-<% _.each(datas,function(item){ %>
+﻿<!--商品行-->
+<TemplGoodsRow>
+<% if(typeof(goodsList) != "undefined" && goodsList != null && goodsList){ %>
+<% _.each(goodsList,function(item){ %>
     <tr data-id="<%= item.ProductGoodsInfoID %>">
 	    <td class="product">
 		    <div class="product_img"><img src="<%= item.ImageUrl %>" alt="商品图片"></div>
@@ -20,8 +21,8 @@
 		    </div>
 	    </td>
 	    <td>
-		    <div class="date"><%= item.DataChange_CreateTime %></div>
-		    <div class="time"></div>
+		    <div class="date"><%= DateJsonToJSDate(item.DataChange_CreateTime) %></div>
+		    <div class="time"><%= DateJsonToJSTime(item.DataChange_CreateTime) %></div>
 	    </td>
 	    <td>
 		    <div><%=item.StatusName %></div>
