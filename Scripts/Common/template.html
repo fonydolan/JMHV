@@ -1,10 +1,9 @@
-﻿
-<!--商品行-->
-<TemplGoodsRow>
+﻿<TemplGoodsRow>
+<% if(datas){ %>
 <% _.each(datas,function(item){ %>
-    <tr>
+    <tr data-id="<%= item.ProductGoodsInfoID %>">
 	    <td class="product">
-		    <div class="product_img"><img src="<%= item.GetImageUrl() %>" alt="商品图片"></div>
+		    <div class="product_img"><img src="<%= item.ImageUrl %>" alt="商品图片"></div>
 		    <div class="product_title"><%= item.Title %></div>
 	    </td>
 	    <td>
@@ -16,16 +15,16 @@
 		    <div>&nbsp;</div>
 	    </td>
 	    <td class="price">
-		    <div>2000.00~3000.00
+		    <div><%= item.MinSalePrice %>~<%= item.MaxSalePrice %>
 			    <span class="ico_edit relative ml5"></span>
 		    </div>
 	    </td>
 	    <td>
-		    <div class="date">2014-12-29</div>
-		    <div class="time">20:20</div>
+		    <div class="date"><%= item.DataChange_CreateTime %></div>
+		    <div class="time"></div>
 	    </td>
 	    <td>
-		    <div>未提交</div>
+		    <div><%=item.StatusName %></div>
 		    <div>&nbsp;</div>
 	    </td>
 	    <td class="lt">
@@ -40,100 +39,12 @@
 		    </div>
 	    </td>
     </tr>
-<%}); %>
-</TemplGoodsRow>
-<!--日志-->
-<TemplGoodsLogRow>
-    <tr>
-		<td colspan="7">
-			<table class="table_log">
-				<thead align="left">
-				<tr>
-					<th width="237px" style="text-align: center;">操作日期</th>
-					<th width="150px">操作员</th>
-					<th width="150px">操作内容</th>
-					<th>备注</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr>
-					<td align="center">2015-1-20 22;00</td>
-					<td>李三三</td>
-					<td>新增商品</td>
-					<td></td>
-				</tr>
-				</tbody>
-			</table>
-            <!--翻页-->
-			<div class="pagination_sm">
-                <a href="javascript:void(0);">&lt;</a>
-                <a class="active" href="javascript:void(0);">1</a>
-                <a href="javascript:void(0);">2</a>
-                <a href="javascript:void(0);">3</a>
-                <span class="page_ellipsis">...</span>
-                <a href="javascript:void(0);">6</a>
-                <a href="javascript:void(0);">&gt;</a>
-            </div>	
-        </td>
+<% }); %> 
+<% } else { %>
+    <tr class="goods-null">
+		<td colspan="6">
+			<span class="txt_grey">没有商品</span>
+		</td>
 	</tr>
-</TemplGoodsLogRow>
-<!--编辑报价库存弹框-->
-<TemplPopInventoryPriceEdit>
-    <div class="pop pop_md" style="display:block;">
-	    <div class="pop_hd">
-		    <a class="ico_close" href="javascript:void(0);">×</a>
-		    <div class="pop_tl">编辑售卖价与数量</div>
-	    </div>
-	    <div class="pop_bd">
-		    <table class="pop_bd_sale">
-			    <tbody><tr>
-				    <th>出入库</th>
-				    <td>
-					    <label class="sale"><input type="radio" name="popsale" />入库</label>
-					    <label class="sale ml20"><input type="radio" name="popsale" />出库</label>
-				    </td>
-			    </tr>
-			    <tr>
-				    <th>规格</th>
-				    <td>
-					    <div class="pop_table">
-						    <!-- <p>YAMAHA 雅马哈 桌面型音频系统MCR-B142 <i class="ico ico_edit"></i></p> -->
-						    <table>
-							    <thead align="center">
-								    <tr height="39">
-									    <td width="71">颜色</td>
-									    <td width="71">大小</td>
-									    <td width="103">售卖价（元）</td>
-									    <td width="103">数量</td>
-								    </tr>
-							    </thead>
-							    <tbody align="center">
-								    <tr>
-									    <td rowspan="3">红色</td>
-									    <td height="39">S</td>
-									    <td><input type="text" class="btn_disabled" placeholder="50" disabled="" /></td>
-									    <td><input type="text" placeholder="50" /></td>
-								    </tr>
-								    <tr>
-									    <td height="39">M</td>
-									    <td><input type="text" class="btn_disabled" placeholder="50" disabled="" /></td>
-									    <td><input type="text" placeholder="50" /></td>
-								    </tr>
-								    <tr>
-									    <td height="39">L</td>
-									    <td><input type="text" class="btn_disabled" placeholder="50" disabled="" /></td>
-									    <td><input type="text" placeholder="50" /></td>
-								    </tr>
-							    </tbody>
-						    </table>
-					    </div>
-				    </td>
-			    </tr>
-		    </tbody></table>
-		    <div class="pop_btn">
-			    <a class="btn btn_blue pop_btn_sm" href="#">保  存</a>
-			    <a class="btn btn_border_blue pop_btn_sm" href="#">取  消</a>
-		    </div>
-	    </div>
-    </div>
-</TemplPopInventoryPriceEdit>
+<% } %>
+</TemplGoodsRow>
