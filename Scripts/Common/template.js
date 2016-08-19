@@ -2,7 +2,7 @@
 模板
 CreateDate:2016.8.16
 Author:fangqj
-EditeDate:2016.8.18 18:29
+EditeDate:2016.8.19 15:37
  */
 define(['underscore'], function (_) {
     var templateC = {
@@ -82,15 +82,50 @@ define(['underscore'], function (_) {
         eventsExtend: function (dom) {
             var templ = this;
             if (dom) {
-                dom.delegate("input[data-tmpltype=decimal]", 'keyup afterpaste', function () {
-                    if ($(this).val()) {
-                        $(this).val(templ.DecimalTrim($(this).val()));
+                //data-tmpltype='decimal(integerlength,decimallength,maxvalue)'
+                dom.delegate("input[data-tmpltype^=decimal]", 'keyup afterpaste', function () {
+                    var value = $(this).val();
+                    if (value && value.length>0) {
+                        var tmpltype = $(this).data('tmpltype');
+                        var strEval="";
+                        if(tmpltype.length>0)
+                        {
+                            if(/^decimal\(\d+((\,\d+)\,\d+\.?\d*)?\)$/.test(tmpltype)){
+                                strEval = tmpltype.toLocaleLowerCase();
+                            }
+                        }
+                        var valueNew = "";
+                        if(strEval && strEval.length>0)
+                        {
+                            strEval = strEval.replace('decimal(','templ.DecimalTrim('+value+',');
+                            valueNew = eval(strEval);
+                        }else{
+                            valueNew = templ.DecimalTrim(value,6,2,999999.99);
+                        }
+                        $(this).val(valueNew);
                     }
                 });
-                dom.delegate("input[data-tmpltype=number]", 'keyup afterpaste', function () {
-                    if ($(this).val()) {
-                        var maxVal = $(this).data('maxvalue');
-                        $(this).val(templ.NumberTrim($(this).val(),null,maxVal));
+                //data-tmpltype='number(length,maxvalue)'
+                dom.delegate("input[data-tmpltype^=number]", 'keyup afterpaste', function () {
+                    var value = $(this).val();
+                    if (value && value.length>0) {
+                        var tmpltype = $(this).data('tmpltype');
+                        var strEval="";
+                        if(tmpltype.length>0)
+                        {
+                            if(/^number\(\d+(\,\d+)?\)$/.test(tmpltype)){
+                                strEval = tmpltype.toLocaleLowerCase();
+                            }
+                        }
+                        var valueNew = "";
+                        if(strEval && strEval.length>0)
+                        {
+                            strEval = strEval.replace('number(','templ.IntegerTrim('+value+',');
+                            valueNew = eval(strEval);
+                        }else{//默认6位
+                            valueNew = templ.IntegerTrim(value,6,999999);
+                        }
+                        $(this).val(valueNew);
                     }
                 });
             }
@@ -115,17 +150,10 @@ define(['underscore'], function (_) {
             var str = date.getHours() + ":" + date.getMinutes(); // +":" + date.getSeconds();
             return str;
         },
-        //浮点数 保留小数 限制长度
-        DecimalTrim: function (val, len, lenDot) {
-            if (val) {
-                if (!len || len <= 0)
-                    len = 6;
-                if (!lenDot || lenDot <= 0)
-                    lenDot = 2;
-                val = val.replace(/[^\d.]/g, "");
-                val = val.replace(/^\./g, "")
-                val = val.replace(/\.{2,}/g, ".");
-                val = val.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+        //截取数字 长度 小数保留长度 最大值 decimalLen：0-整数；>0-小数位数；else:不限制小数位数
+        NumberLengthTrim: function (val,integerLen,decimalLen,maxValue) {
+            if(val){
+                val = val.toString();
                 var index = val.indexOf('.');
                 var first = "", last = "", point = "";
                 if (index && index > 0) {
@@ -137,32 +165,52 @@ define(['underscore'], function (_) {
                     first = val;
                 }
                 if (first && first.length > 0) {
-                    if (first.length > len)
-                        first = first.substr(0, len);
+                    if(integerLen && integerLen > 0){
+                        if (first.length > integerLen)
+                            first = first.substr(0, integerLen);
+                    }
                     val = first + point;
                 }
                 if (last && last.length > 0) {
-                    if (last.length > lenDot)
-                        last = last.substr(0, lenDot);
-                    val = first + '.' + last;
+                    if(decimalLen && decimalLen >= 0)
+                    {
+                        if(decimalLen > 0){
+                            if (last.length > decimalLen)
+                                last = last.substr(0, decimalLen);
+                            if(first.length ==0)
+                                first = "0";
+                            val = first + '.' + last;
+                        }else{
+                           val = first; 
+                        }
+                    }
+                }
+                if(maxValue)
+                {
+                    if(Number(val) > Number(maxValue))
+                        val = Number(maxValue);
                 }
             }
             return val;
         },
-        //限制长度
-        NumberTrim: function (val, len,maxVal) {
+        //浮点数 保留小数 限制长度
+        DecimalTrim: function (val, len, lenDot,maxValue) {
             if (val) {
-                if (!len || len <= 0)
-                    len = 6;
-                val = val.replace(/[^\d{6}$]/g, "");
-                if (val && val.length > len) {
-                    val = val.substr(0, len);
-                }
+                val = val.toString();
+                val = val.replace(/[^\d.]/g, "");
+                val = val.replace(/^\./g, "")
+                val = val.replace(/\.{2,}/g, ".");
+                val = val.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+                val = templateC.NumberLengthTrim(val,len,lenDot,maxValue);
             }
-            if(maxVal)
-            {
-                if(Number(val) > Number(maxVal))
-                    val = Number(maxVal);
+            return val;
+        },
+        //限制长度
+        IntegerTrim: function (val, len,maxValue) {
+            if (val) {
+                val = val.toString();
+                val = val.replace(/[^\d{6}$]/g, "");
+                val = templateC.NumberLengthTrim(val,len,0,maxValue);
             }
             return val;
         },
