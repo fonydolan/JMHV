@@ -1,0 +1,23 @@
+<!--#include virtual="/JMHV/Views/Shared/layout_start.shtml"  -->
+    <!--#include file="reactBase.shtml"  -->
+    <!--#block name="content" -->
+    <div>
+        <h3>react demo8 组件 </h3>
+        <p>
+        </p>
+        attention:
+        <p>
+            
+        </p>
+        <p>
+            
+        </p>
+    </div>
+    <br/>
+    index:
+    <div id="index">
+    </div>
+   
+    <script type="text/babel" src="/JMHV/Scripts/React/demo8.js"></script>
+    <!--#endblock -->
+<!--#include virtual="/JMHV/Views/Shared/layout_end.shtml"  -->
