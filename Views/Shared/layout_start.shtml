@@ -13,8 +13,8 @@
     <script type="text/javascript" src="/JMHV/Scripts/jquery-2.2.4.js"></script>
     <script type="text/javascript" src="/JMHV/Scripts/Underscore/Underscore_1.8.2.js"></script>
     <script type="text/javascript" src="/JMHV/Scripts/Backbone/backbone.js"></script>
-    --> 
     <script type="text/javascript" src="/JMHV/Scripts/RquireJS/Require.js" data-main="/JMHV/Scripts/RquireJS/requireConfig.js"></script>
+    --> 
 <title>jmhv</title>
 </head>
 <body>
