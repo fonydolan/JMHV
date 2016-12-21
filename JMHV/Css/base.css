@@ -1,0 +1,41 @@
+body {
+	margin: 0 0 0 0;
+	font-size: 1em;  
+
+	position: relative;   /*重要！保证footer是相对于wapper位置绝对*/  
+    height: auto;          /* 保证页面能撑开浏览器高度时显示正常*/  
+    min-height: 100%; /* IE6不支持，IE6要单独配置*/ 
+}
+header {
+	background-color: #eee;
+	text-align: center;
+	height: 3em;
+}
+.content {
+	background-color: #aaa;
+	padding-bottom: 3em; /*重要！给footer预留的空间*/  
+}
+footer {
+	background-color: #eee;
+	text-align: center;
+	width: 100%;
+	position: fixed;  
+	bottom: 0em; /* 关键 */  
+    left:0em; /* IE下一定要记得 */  
+    height: 3em;         /* footer的高度一定要是固定值*/  
+}
+h1,h2,h3,h4,h5,h6 {
+	display: initial;
+}
+.navigater {
+    z-index: 2;
+    color: white;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0.5em 0px 0.5em 0;
+    padding: 0 3em 0 0;
+}
+.navigater a {
+	text-decoration:none;
+}

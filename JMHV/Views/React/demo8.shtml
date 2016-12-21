@@ -1,0 +1,43 @@
+<!--#include virtual="/JMHV/Views/Shared/layout_start.shtml"  -->
+    <!--#include file="reactBase.shtml"  -->
+    <!--#block name="content" -->
+    <div>
+        <h3>react demo8 组件 </h3>
+        <p>
+        </p>
+        attention:
+        <p>
+            
+        </p>
+        <p>
+            
+        </p>
+    </div>
+    <br/>
+    index:
+    <div id="index">
+    </div>
+   
+    <script type="text/babel" src="/JMHV/Scripts/React/demo8.js"></script>
+    <!--#endblock -->
+<!--#include virtual="/JMHV/Views/Shared/layout_end.shtml"  -->
+<!--
+组件的生命周期分成三个状态：
+Mounting：已插入真实 DOM
+Updating：正在被重新渲染
+Unmounting：已移出真实 DOM
+
+每个状态都提供了两种处理函数，will 函数在进入状态之前调用，did 函数在进入状态之后调用
+componentWillMount()
+componentDidMount()
+componentWillUpdate(object nextProps, object nextState)
+componentDidUpdate(object prevProps, object prevState)
+componentWillUnmount()
+
+两种特殊状态的处理函数
+componentWillReceiveProps(object nextProps)：已加载组件收到新的参数时调用
+shouldComponentUpdate(object nextProps, object nextState)：组件判断是否重新渲染时调用
+
+
+
+-->

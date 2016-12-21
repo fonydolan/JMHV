@@ -1,0 +1,18 @@
+<!--#include virtual="/JMHV/Views/Shared/layout_start.shtml"  -->
+    <!--#include file="reactBase.shtml"  -->
+    <!--#block name="content" -->
+    <div>
+        <h3>react demo1 ReactDOM.render</h3>
+        <p>
+        </p>
+    </div>
+    <div id="index">
+    </div>
+    <script type="text/babel">
+        ReactDOM.render(
+            <h1>react jsx test</h1>,
+            document.getElementById('index')
+        );
+    </script>
+    <!--#endblock -->
+<!--#include virtual="/JMHV/Views/Shared/layout_end.shtml"  -->

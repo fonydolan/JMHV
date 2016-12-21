@@ -1,0 +1,29 @@
+
+<script type="text/javascript" src="/JMHV/Scripts/React/react.js"></script>
+<script type="text/javascript" src="/JMHV/Scripts/React/react-dom.js"></script>
+<script type="text/javascript" src="/JMHV/Scripts/React/browser.min.js"></script>
+<div class="navigater" id="navigaterDiv">
+<a href="./index.shtml">index</a>
+<div id="navigaterItems">
+</div>
+<br/>
+</div>
+<script type="text/babel">
+    var inArr = [];
+    var count =10;
+    for(var i=1;i<=count;i++)
+    {
+        inArr.push(i);
+    }
+    ReactDOM.render(
+        <div>
+        {
+            inArr.map(function(i){
+                var url ="./demo"+i+".shtml"; 
+                return <a href={url}> demo{i} </a>;
+            })
+        }
+        </div>,
+        document.getElementById('navigaterItems')
+    );
+</script>

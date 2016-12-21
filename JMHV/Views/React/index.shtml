@@ -1,0 +1,14 @@
+<!--#include virtual="/JMHV/Views/Shared/layout_start.shtml"  -->
+    <!--#include file="reactBase.shtml"  -->
+    <!--#block name="content" -->
+    <div>
+        <h3>index react hello world</h3>
+        <p>
+            thank you for 
+            <a href="http://www.ruanyifeng.com/blog/2015/03/react.html">ruanyf</a>
+        </p>
+    </div>
+     <div id="index">
+    </div>
+    <!--#endblock -->
+<!--#include virtual="/JMHV/Views/Shared/layout_end.shtml"  -->
