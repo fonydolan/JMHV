@@ -1,9 +1,0 @@
-<footer>
-    <div>
-    	<!--#flastmod file="footer.shtml"-->
-		<!--#fsize file="footer.shtml"-->
-		<br/>
-        footer
-    </div>  
-    <!--#include stub="footerJS" -->
-</footer>

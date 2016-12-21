@@ -1,7 +1,0 @@
-<!--#include virtual="/JMHV/Views/Shared/layout_start.shtml"  -->
-<!--#block name="content" -->
-     <div id="index">
-        <label>index hello world</label>
-    </div>
-<!--#endblock -->
-<!--#include virtual="/JMHV/Views/Shared/layout_end.shtml"  -->
